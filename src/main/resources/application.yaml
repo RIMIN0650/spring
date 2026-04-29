@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    jpa:
+      database-platform: ${DB_PLATFORM}
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+    logging:
+      level:
+        org.hibernate.SQL: debug
+        org.hibernate.orm.jdbc.bind: trace
+        org.springframework.security: DEBUG
+        org.springframework.web: DEBUG
