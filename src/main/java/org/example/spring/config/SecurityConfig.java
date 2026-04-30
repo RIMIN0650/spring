@@ -16,7 +16,7 @@ public class SecurityConfig {
         
         http.authorizeHttpRequests(
                 (auth) -> auth
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login", "/signup").permitAll()
         );
         
         http.addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class);
