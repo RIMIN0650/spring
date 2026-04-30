@@ -1,6 +1,8 @@
 package org.example.spring.user.model;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Builder;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,15 +12,21 @@ import java.util.List;
 
 
 @Builder
+@Getter
 public class AuthUserDetails implements UserDetails {
 
+    private Long idx;
     private String username;
     private String password;
+    private boolean enable;
+    private String role;
 
     public static AuthUserDetails from(User entity) {
         return AuthUserDetails.builder()
                 .username(entity.getEmail())
                 .password(entity.getPassword())
+                .role(entity.getRole())
+                .enable(entity.isEnable())
                 .build();
     }
 
