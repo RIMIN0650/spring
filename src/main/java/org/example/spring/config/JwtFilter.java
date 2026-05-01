@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.example.spring.user.model.AuthUserDetails;
 import org.example.spring.utils.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,11 +18,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-
-    private final JwtUtil jwtUtil;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -35,14 +33,30 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
-                Long userIdx = jwtUtil.getUserIdx(cookie.getValue());
+                if (cookie.getName().equals("ATOKEN")) {
+                    Long userIdx = JwtUtil.getUserIdx(cookie.getValue());
+                    System.out.println(userIdx);
 
-                String username = jwtUtil.getUsername(cookie.getValue());
+                    String username = JwtUtil.getUsername(cookie.getValue());
+                    String role = JwtUtil.getRole(cookie.getValue());
 
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    AuthUserDetails authUserDetails = AuthUserDetails.builder()
+                            .idx(userIdx)
+                            .username(username)
+                            .role(role)
+                            .build();
+
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(
+                            authUserDetails,
+                            null,
+                            List.of(new SimpleGrantedAuthority(role))
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                }
             }
         }
         filterChain.doFilter(request, response);
     }
+
 }
