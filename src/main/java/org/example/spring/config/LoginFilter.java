@@ -21,19 +21,17 @@ import java.io.IOException;
 @Component
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
         this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        System.out.println("로그인 성공했을 때 실행");
+        System.out.println("login success");
         AuthUserDetails user = (AuthUserDetails) authResult.getPrincipal();
-        String token = jwtUtil.createToken(user.getIdx(), user.getUsername(), user.getRole());
+        String token = JwtUtil.createToken(user.getIdx(), user.getUsername(), user.getRole());
         response.setHeader("Set-Cookie", "ATOKEN=" + token + "; Path=/");
     }
 

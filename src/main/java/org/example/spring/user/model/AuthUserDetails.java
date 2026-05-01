@@ -30,6 +30,16 @@ public class AuthUserDetails implements UserDetails {
                 .build();
     }
 
+    public User toEntity() {
+        return User.builder()
+                .idx(this.idx)
+                .email(this.username)
+                .password(this.password)
+                .enable(this.enable)
+                .role(this.role)
+                .build();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -52,7 +62,7 @@ public class AuthUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(this.role));
     }
 
     @Override
