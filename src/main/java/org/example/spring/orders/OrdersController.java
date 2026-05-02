@@ -34,8 +34,11 @@ public class OrdersController {
     @PostMapping("/verify")
     public ResponseEntity verify (
             @AuthenticationPrincipal AuthUserDetails authUserDetails,
-            @RequestBody OrdersDto.VerifyReq dto) {
-        ordersService.verify(authUserDetails, dto);
+            @RequestBody OrdersDto.VerifyReq verifyReq) {
+
+        System.out.println(verifyReq.getPaymentId());
+
+        ordersService.verify(authUserDetails, verifyReq);
 
         return ResponseEntity.ok("성공");
     }

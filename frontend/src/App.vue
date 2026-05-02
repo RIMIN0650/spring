@@ -72,12 +72,12 @@ const onPayment = async () => {
   paymentStatus.value = {status: "IDLE" , message : '결제 진행 중...'}
 
 
-  const paymentId = Math.floor(Math.random() * 101);
+  const paymentId = `order-${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`;
   // 결제창 띄우기
   const payment = await PortOne.requestPayment({
     storeId: "store-e41df7ff-0ba8-4ccc-b19f-7655c291bbcb",
     channelKey: "channel-key-40356538-ccfe-4420-a5a9-d9190bde73cf",
-    paymentId: "imp_14421y5ifdg7ig" + paymentId,
+    paymentId: paymentId,
     orderName: orderName,
     totalAmount: totalPrice.value,
     currency: 'KRW',
@@ -88,9 +88,9 @@ const onPayment = async () => {
   }).catch((error) => {
     paymentStatus.value = {status: "FAILED", message: '결제 시도가 실패하였습니다. 잠시 후 다시 시도해주세요.'}
   });
-
+  alert(payment.paymentId)
   // 3. 결제 검증
-  const verifyResponse = await axios.post('/orders/verify', {paymentId: payment.paymentId})
+  const verifyResponse = await axios.post('http://localhost:8080/orders/verify', {paymentId: payment.paymentId})
 }
 
 onMounted(async () => {

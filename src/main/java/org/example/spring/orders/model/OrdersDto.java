@@ -11,7 +11,7 @@ public class OrdersDto {
     @Builder
     @Getter
     public static class VerifyReq {
-        private String payementId;
+        private String paymentId;
     }
 
     @Builder
