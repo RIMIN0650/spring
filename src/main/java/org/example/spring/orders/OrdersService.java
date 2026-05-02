@@ -1,8 +1,9 @@
 package org.example.spring.orders;
 
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.ToNumberPolicy;
+
+import com.nimbusds.jose.shaded.gson.GsonBuilder;
+import com.nimbusds.jose.shaded.gson.ToNumberPolicy;
 import io.portone.sdk.server.payment.PaidPayment;
 import io.portone.sdk.server.payment.Payment;
 import io.portone.sdk.server.payment.PaymentClient;
@@ -31,7 +32,7 @@ public class OrdersService {
 
     @Transactional
     public void verify(AuthUserDetails authUserDetails, OrdersDto.VerifyReq dto) {
-        CompletableFuture<Payment> completableFuture = pg.getPayment(dto.getPayementId());
+        CompletableFuture<Payment> completableFuture = pg.getPayment(dto.getPaymentId());
         Payment payment = completableFuture.join();
 
         if (payment instanceof PaidPayment paidPayment) {
@@ -49,7 +50,7 @@ public class OrdersService {
 
             if (paidPayment.getAmount().getTotal() == totalPrice) {
                 orders.setPaid(true);
-                orders.setPgPaymentId(dto.getPayementId());
+                orders.setPgPaymentId(dto.getPaymentId());
                 ordersRepository.save(orders);
             }
 

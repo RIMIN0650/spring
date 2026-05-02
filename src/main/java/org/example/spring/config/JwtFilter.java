@@ -35,10 +35,11 @@ public class JwtFilter extends OncePerRequestFilter {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("ATOKEN")) {
                     Long userIdx = JwtUtil.getUserIdx(cookie.getValue());
-                    System.out.println(userIdx);
 
                     String username = JwtUtil.getUsername(cookie.getValue());
                     String role = JwtUtil.getRole(cookie.getValue());
+                    System.out.println(username);
+                    System.out.println(role);
 
                     AuthUserDetails authUserDetails = AuthUserDetails.builder()
                             .idx(userIdx)
