@@ -10,6 +10,12 @@ public class OrdersDto {
 
     @Builder
     @Getter
+    public static class VerifyReq {
+        private String payementId;
+    }
+
+    @Builder
+    @Getter
     public static class OrdersReq {
         private Integer paymentPrice;
         private List<Long> courseIdxList;
