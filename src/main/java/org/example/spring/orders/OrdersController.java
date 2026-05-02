@@ -31,13 +31,13 @@ public class OrdersController {
 
 
 
-//    @PostMapping("/verify")
-//    public ResponseEntity<BaseResponse<OrdersDto.VerifyRes>> verify (
-//            @AuthenticationPrincipal AuthUserDetails authUserDetails,
-//            @Valid @RequestBody OrdersDto.VerifyReq dto) {
-//        OrdersDto.VerifyRes response = ordersService.verify(authUserDetails, dto);
-//
-//        return ResponseEntity.ok(BaseResponse.success(response));
-//    }
+    @PostMapping("/verify")
+    public ResponseEntity verify (
+            @AuthenticationPrincipal AuthUserDetails authUserDetails,
+            @RequestBody OrdersDto.VerifyReq dto) {
+        ordersService.verify(authUserDetails, dto);
+
+        return ResponseEntity.ok("성공");
+    }
 
 }
