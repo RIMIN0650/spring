@@ -23,6 +23,7 @@ public class AuthUserDetails implements UserDetails {
 
     public static AuthUserDetails from(User entity) {
         return AuthUserDetails.builder()
+                .idx(entity.getIdx())
                 .username(entity.getEmail())
                 .password(entity.getPassword())
                 .role(entity.getRole())

@@ -4,7 +4,7 @@ jwt:
 
 portone:
   portone_secret: ${PORTONE_SECRET}
-
+  api-url: "https://api.portone.io"
 
 spring:
   application:

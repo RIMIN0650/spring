@@ -1,9 +1,6 @@
 package org.example.spring.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
@@ -22,4 +19,8 @@ public class User {
 
     private boolean enable;
     private String role;
+
+    @Setter
+    @Column(name = "billing_key", nullable = true)
+    private String billingKey;
 }
