@@ -41,4 +41,14 @@ public class UserDto {
                     .build();
         }
     }
+
+    @Builder
+    @Getter
+    public static class userInfoRes {
+        private Long idx;
+        private String name;
+        private boolean enable;
+        private String role;
+        private String billingKey;
+    }
 }

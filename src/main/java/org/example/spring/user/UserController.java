@@ -25,4 +25,17 @@ public class UserController {
         return ResponseEntity.ok("성공");
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserDto.userInfoRes> getLoggedInUserInfo(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
+
+        UserDto.userInfoRes dto = UserDto.userInfoRes.builder()
+                .idx(authUserDetails.getIdx())
+                .name(authUserDetails.getUsername())
+                .role(authUserDetails.getRole())
+                .billingKey(authUserDetails.getBillingKey())
+                .build();
+
+        return ResponseEntity.ok(dto);
+    }
+
 }

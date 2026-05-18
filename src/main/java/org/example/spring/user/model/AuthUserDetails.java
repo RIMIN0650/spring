@@ -20,6 +20,7 @@ public class AuthUserDetails implements UserDetails {
     private String password;
     private boolean enable;
     private String role;
+    private String billingKey;
 
     public static AuthUserDetails from(User entity) {
         return AuthUserDetails.builder()
@@ -28,6 +29,7 @@ public class AuthUserDetails implements UserDetails {
                 .password(entity.getPassword())
                 .role(entity.getRole())
                 .enable(entity.isEnable())
+                .billingKey(entity.getBillingKey())
                 .build();
     }
 
