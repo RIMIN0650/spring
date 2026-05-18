@@ -12,7 +12,7 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "@portone/browser-sdk": "^0.1.5",
+    "@portone/browser-sdk": "^0.1.6",
     "axios": "^1.15.2",
     "pinia": "^3.0.4",
     "vue": "^3.5.32",
